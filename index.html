@@ -22,7 +22,7 @@
     <div class="container">
       <h1>Học Ngoại Ngữ Qua Karaoke Với AI</h1>
       <p>Phương pháp học ngoại ngữ mới lạ, kết hợp âm nhạc và công nghệ AI để phát âm chuẩn, học từ vựng dễ dàng.</p>
-      <a href="#signup" class="cta-btn">Đăng ký ngay</a>
+      <a href="#signup" class="cta-btn" id="signup-now">Đăng ký ngay</a>
     </div>
   </header>
 
@@ -56,7 +56,7 @@
       <p>Hãy là một trong những người đầu tiên trải nghiệm ứng dụng của chúng tôi!</p>
       <form>
         <input type="email" placeholder="Nhập email của bạn" required>
-        <button type="submit">Đăng ký</button>
+        <button type="submit" id="submit-button">Đăng ký</button>
       </form>
     </div>
   </section>
@@ -65,11 +65,11 @@
     <div class="container">
       <h2>Tải ứng dụng trên điện thoại</h2>
       <p>Ứng dụng đã có mặt trên Android và iOS. Hãy tải ngay để trải nghiệm!</p>
-      <div class="download-buttons">
+      <div class="download-buttons" id="download-button-android">
         <a href="#" class="download-btn android">
           <img src="PreRegisterOnGooglePlay_Badge_Web_color_vi.png" alt="Google Play">
         </a>
-        <a href="#" class="download-btn ios">
+        <a href="#" class="download-btn ios"  id="download-button-ios">
           <img src="badge-pre-order-on-the-app-store.svg" alt="App Store">
         </a>
       </div>
@@ -83,4 +83,35 @@
     </div>
   </footer>
 </body>
+
+<script>
+  document.getElementById("download-button-android").addEventListener("click", function() {
+    gtag('event', 'download_app_android', {
+      'event_category': 'cta_buttons',
+      'event_label': 'Tải App Button Android'
+    });
+  });
+
+  document.getElementById("download-button-ios").addEventListener("click", function() {
+    gtag('event', 'download_app_ios', {
+      'event_category': 'cta_buttons',
+      'event_label': 'Tải App Button iOS'
+    });
+  });
+
+  document.getElementById("submit-button").addEventListener("click", function() {
+    gtag('event', 'submit_registration', {
+      'event_category': 'cta_buttons',
+      'event_label': 'Đăng Ký Button'
+    });
+  });
+
+  document.getElementById("signup-now").addEventListener("click", function() {
+    gtag('event', 'click_signup_now', {
+      'event_category': 'cta_buttons',
+      'event_label': 'Click Đăng ký ngay'
+    });
+  });
+</script>
+
 </html>
