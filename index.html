@@ -6,6 +6,10 @@
   <meta name="description" content="Học ngoại ngữ qua karaoke với AI. Tải ứng dụng ngay để cải thiện kỹ năng ngôn ngữ và phát triển khả năng âm nhạc của bạn.">
   <title>Sing2Learn - Học Ngoại Ngữ Qua Karaoke</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="site.webmanifest">
 </head>
 
 <!-- Google tag (gtag.js) -->
@@ -55,10 +59,11 @@
     <div class="container">
       <h2>Đăng ký trải nghiệm sớm</h2>
       <p>Hãy là một trong những người đầu tiên trải nghiệm ứng dụng của chúng tôi!</p>
-      <form>
-        <input type="email" placeholder="Nhập email của bạn" required>
+      <form id="signup-form">
+        <input id="email" type="email" placeholder="Nhập email của bạn" required>
         <button type="submit" id="submit-button">Đăng ký</button>
       </form>
+      <p id="responseMessage"></p>
     </div>
   </section>
 
@@ -113,6 +118,31 @@
       'event_label': 'Click Đăng ký ngay'
     });
   });
+
+  document.getElementById('signup-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('responseMessage');
+    const FIREBASE_FUNCTION_URL = 'https://us-central1-sing2learn-2b622.cloudfunctions.net/addTrialUser';
+
+    try {
+      const response = await fetch(FIREBASE_FUNCTION_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      const result = await response.json();
+      if (result.status === 'success') {
+        message.textContent = 'Thank you for signing up!';
+      } else {
+        message.textContent = 'Error: ' + result.message;
+      }
+    } catch (error) {
+      message.textContent = 'An error occurred. Please try again.';
+    }
+  });
+
 </script>
 
 </html>
