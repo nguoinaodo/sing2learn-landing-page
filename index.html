@@ -63,7 +63,8 @@
         <input id="email" type="email" placeholder="Nhập email của bạn" required>
         <button type="submit" id="submit-button">Đăng ký</button>
       </form>
-      <p id="responseMessage"></p>
+      <p id="success-message"></p>
+      <p class="privacy-note">Chúng tôi tôn trọng quyền riêng tư và sẽ không chia sẻ email của bạn.</p>
     </div>
   </section>
 
@@ -72,10 +73,10 @@
       <h2>Tải ứng dụng trên điện thoại</h2>
       <p>Ứng dụng đã có mặt trên Android và iOS. Hãy tải ngay để trải nghiệm!</p>
       <div class="download-buttons" id="download-button-android">
-        <a href="#" class="download-btn android">
+        <a href="#signup" class="download-btn android">
           <img src="PreRegisterOnGooglePlay_Badge_Web_color_vi.png" alt="Google Play">
         </a>
-        <a href="#" class="download-btn ios"  id="download-button-ios">
+        <a href="#signup" class="download-btn ios"  id="download-button-ios">
           <img src="badge-pre-order-on-the-app-store.svg" alt="App Store">
         </a>
       </div>
@@ -91,6 +92,7 @@
 </body>
 
 <script>
+  
   document.getElementById("download-button-android").addEventListener("click", function() {
     gtag('event', 'download_app_android', {
       'event_category': 'cta_buttons',
@@ -122,9 +124,10 @@
   document.getElementById('signup-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const email = document.getElementById('email').value;
-    const message = document.getElementById('responseMessage');
+    const message = document.getElementById('success-message');
     const FIREBASE_FUNCTION_URL = 'https://asia-southeast1-sing2learn-2b622.cloudfunctions.net/addTrialUser';
 
+    const fixedMessage = 'Cảm ơn bạn vì đã quan tâm!';
     try {
       const response = await fetch(FIREBASE_FUNCTION_URL, {
         method: 'POST',
@@ -133,13 +136,15 @@
       });
 
       const result = await response.json();
-      if (result.status === 'success') {
-        message.textContent = 'Thank you for signing up!';
-      } else {
-        message.textContent = 'Error: ' + result.message;
-      }
+      // if (result.status === 'success') {
+      //   message.textContent = 'Cảm ơn bạn vì đã đăng ký!';
+      // } else {
+      //   message.textContent = 'Error: ' + result.message;
+      // }
+      message.textContent = fixedMessage;
     } catch (error) {
-      message.textContent = 'An error occurred. Please try again.';
+      // message.textContent = 'An error occurred. Please try again.';
+      message.textContent = fixedMessage;
     }
   });
 
