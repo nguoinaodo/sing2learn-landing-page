@@ -123,6 +123,9 @@
 
   document.getElementById('signup-form').addEventListener('submit', async (e) => {
     e.preventDefault();
+    // setTimeout(() => {
+    //   location.href = 'confirmation.html'
+    // }, 1000);
     const email = document.getElementById('email').value;
     const message = document.getElementById('success-message');
     const FIREBASE_FUNCTION_URL = 'https://asia-southeast1-sing2learn-2b622.cloudfunctions.net/addTrialUser';
@@ -142,6 +145,11 @@
           'event_category': 'cta_buttons',
           'event_label': 'Submit email thành công'
         });
+        
+        // go to confirmation page
+        setTimeout(() => {
+          location.href = 'confirmation.html'
+        }, 500);
       } else {
         // message.textContent = 'Error: ' + result.message;
         gtag('event', 'email_submit_fail', {
